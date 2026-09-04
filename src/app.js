@@ -2,6 +2,7 @@ const readline = require('readline');
 const fs = require('fs');
 const path = require('path');
 const studentManagement = require('./studentManagement');
+const riskAnalysis = require('./riskAnalysis');
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -139,7 +140,7 @@ async function main() {
     
     switch (choice.trim()) {
       case '1': await studentManagementMenu(); break;
-      case '2': console.log('[Coming Soon]'); break;
+      case '2': riskAnalysis.displayRiskAnalysis(); break;
       case '3': console.log('[Coming Soon]'); break;
       case '4': console.log('[Coming Soon]'); break;
       case '5': console.log('\nThank you!'); rl.close(); return;
