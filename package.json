@@ -1,0 +1,14 @@
+{
+  "name": "student-dropout-risk-analysis",
+  "version": "1.0.0",
+  "description": "A terminal-based application to analyze student dropout risk",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["student", "dropout", "risk", "analysis", "education"],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
