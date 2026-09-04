@@ -1,38 +1,73 @@
-# Student Dropout Risk Analysis System
+# EduTrack
 
-A terminal-based application to analyze student data and identify dropout risk factors.
+## Student Dropout Risk Analysis & Intervention System
 
-## Project Structure
+### 📌 Problem Statement
 
+Student dropout can occur due to factors such as poor attendance, low academic performance, financial difficulties, and irregular academic records. Identifying students who are at risk can help educational institutions provide timely support.
+
+### 💡 Proposed Solution
+
+**EduTrack** is a terminal-based application that manages student information, analyzes dropout risk, generates reports, and provides intervention suggestions for high-risk students.
+
+### 🔄 Project Flow
+
+```text
+              START
+                |
+           Main Menu
+                |
+    +-----------+-----------+----------+
+    |           |           |          |
+ Student      Analyze     Reports     Exit
+Management     Risk
+    |           |           |
+ Add           Risk      School/Area/
+ View          Score     Gender/Class
+ Update          |           |
+ Delete          v           v
+             High-Risk    Reports
+             Students
+                 |
+                 v
+          Intervention
+           Suggestions
 ```
-student-dropout-risk-analysis/
-│
-├── src/
-│   └── app.js                 # Main application entry point
-│
-├── data/
-│   └── students.json          # Student data storage
-│
-├── package.json
-└── README.md
-```
 
-## Features
+### 🛠️ Technology Used
 
-- **Student Management**: Add, view, search, update, and delete student records
-- **Dropout Risk Analysis**: Calculate risk scores based on attendance, marks, income, etc.
-- **Reports**: Generate school-wise, area-wise, gender-wise, and caste-wise analysis
-- **Intervention Suggestions**: Provide recommendations based on risk factors
+* **Node.js** – Application runtime
+* **JavaScript** – Application logic
+* **JSON** – Student data storage
+* **readline** – Terminal input/output
+* **fs** – File handling
 
-## How to Run
+### ⭐ Main Features
 
-```bash
-npm start
-```
+* Student Management (Add, View, Update, Delete)
+* Dropout Risk Analysis
+* High-Risk Student Identification
+* Category-wise Reports
+* Intervention Suggestions
 
-## Technology
+### 🚧 Project Status
 
-- Node.js
-- JavaScript
-- Terminal/CLI interface
-- JSON file for data storage
+**Under Development**
+
+Completed:
+
+* [x] Project Setup
+* [x] Main Menu
+* [x] Student Management
+
+Upcoming:
+
+* [ ] Dropout Risk Analysis
+* [ ] Reports
+* [ ] Intervention Suggestions
+
+### 🎯 Objective
+
+To build a simple and easy-to-use system that helps identify students at risk of dropping out and supports better intervention decisions.
+
+**Developed using Node.js for academic purposes.**
