@@ -5,9 +5,7 @@ const studentsFilePath = path.join(__dirname, '../data/students.json');
 
 function readStudents() {
   try {
-    if (!fs.existsSync(studentsFilePath)) {
-      return [];
-    }
+    if (!fs.existsSync(studentsFilePath)) return [];
     return JSON.parse(fs.readFileSync(studentsFilePath, 'utf8'));
   } catch (error) {
     console.error('Error reading file:', error.message);
@@ -15,63 +13,31 @@ function readStudents() {
   }
 }
 
-function calculateAttendanceRisk(attendance) {
-  if (attendance >= 75) return 0;
-  if (attendance >= 50) return 15;
-  return 30;
-}
-
-function calculateMarksRisk(marks) {
-  if (marks >= 60) return 0;
-  if (marks >= 40) return 10;
-  return 20;
-}
-
-function calculateIncomeRisk(income) {
-  if (income > 150000) return 0;
-  if (income >= 75000) return 10;
-  return 20;
-}
-
-function calculatePreviousRecordRisk(previousRecord) {
-  return previousRecord === 'Yes' ? 20 : 0;
-}
-
-function getRiskLevel(totalScore) {
-  if (totalScore <= 30) return 'LOW RISK';
-  if (totalScore <= 60) return 'MEDIUM RISK';
-  return 'HIGH RISK';
-}
-
-function getRiskFactors(riskBreakdown) {
-  const factors = [];
-  if (riskBreakdown.attendance > 0) factors.push('Low attendance');
-  if (riskBreakdown.marks > 0) factors.push('Low academic performance');
-  if (riskBreakdown.income > 0) factors.push('Low family income');
-  if (riskBreakdown.previousRecord > 0) factors.push('Previous irregular academic record');
-  return factors;
-}
-
-function analyzeStudentRisk(student) {
-  const attendanceRisk = calculateAttendanceRisk(student.attendance);
-  const marksRisk = calculateMarksRisk(student.averageMarks);
-  const incomeRisk = calculateIncomeRisk(student.familyIncome);
-  const previousRecordRisk = calculatePreviousRecordRisk(student.previousRecord);
+function calculateRisk(student) {
+  const attendanceRisk = student.attendance >= 75 ? 0 : student.attendance >= 50 ? 15 : 30;
+  const marksRisk = student.averageMarks >= 60 ? 0 : student.averageMarks >= 40 ? 10 : 20;
+  const incomeRisk = student.familyIncome > 150000 ? 0 : student.familyIncome >= 75000 ? 10 : 20;
+  const previousRecordRisk = student.previousRecord === 'Yes' ? 20 : 0;
   
   const totalScore = attendanceRisk + marksRisk + incomeRisk + previousRecordRisk;
-  const riskLevel = getRiskLevel(totalScore);
+  const riskLevel = totalScore <= 30 ? 'LOW RISK' : totalScore <= 60 ? 'MEDIUM RISK' : 'HIGH RISK';
+  
+  const factors = [];
+  if (attendanceRisk > 0) factors.push('Low attendance');
+  if (marksRisk > 0) factors.push('Low academic performance');
+  if (incomeRisk > 0) factors.push('Low family income');
+  if (previousRecordRisk > 0) factors.push('Previous irregular academic record');
   
   return {
     studentId: student.studentId,
     name: student.name,
-    riskBreakdown: {
-      attendance: attendanceRisk,
-      marks: marksRisk,
-      income: incomeRisk,
-      previousRecord: previousRecordRisk
-    },
+    attendanceRisk,
+    marksRisk,
+    incomeRisk,
+    previousRecordRisk,
     totalScore,
-    riskLevel
+    riskLevel,
+    factors
   };
 }
 
@@ -88,22 +54,21 @@ function displayRiskAnalysis() {
   console.log('========================================\n');
   
   students.forEach(student => {
-    const analysis = analyzeStudentRisk(student);
-    const riskFactors = getRiskFactors(analysis.riskBreakdown);
+    const risk = calculateRisk(student);
     
-    console.log(`Student ID: ${analysis.studentId}`);
-    console.log(`Name: ${analysis.name}\n`);
-    console.log(`Attendance Risk       : ${analysis.riskBreakdown.attendance}`);
-    console.log(`Marks Risk            : ${analysis.riskBreakdown.marks}`);
-    console.log(`Family Income Risk    : ${analysis.riskBreakdown.income}`);
-    console.log(`Previous Record Risk  : ${analysis.riskBreakdown.previousRecord}`);
+    console.log(`Student ID: ${risk.studentId}`);
+    console.log(`Name: ${risk.name}\n`);
+    console.log(`Attendance Risk       : ${risk.attendanceRisk}`);
+    console.log(`Marks Risk            : ${risk.marksRisk}`);
+    console.log(`Family Income Risk    : ${risk.incomeRisk}`);
+    console.log(`Previous Record Risk  : ${risk.previousRecordRisk}`);
     console.log('----------------------------------------');
-    console.log(`Total Risk Score      : ${analysis.totalScore}`);
-    console.log(`Risk Level            : ${analysis.riskLevel}\n`);
+    console.log(`Total Risk Score      : ${risk.totalScore}`);
+    console.log(`Risk Level            : ${risk.riskLevel}\n`);
     
-    if (riskFactors.length > 0) {
+    if (risk.factors.length > 0) {
       console.log('Risk Factors:');
-      riskFactors.forEach(factor => console.log(`- ${factor}`));
+      risk.factors.forEach(f => console.log(`- ${f}`));
     } else {
       console.log('Risk Factors: None (all indicators are positive)');
     }
