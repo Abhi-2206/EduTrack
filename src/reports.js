@@ -1,0 +1,97 @@
+const fs = require('fs');
+const path = require('path');
+const riskAnalysis = require('./riskAnalysis');
+
+const studentsFilePath = path.join(__dirname, '../data/students.json');
+
+function readStudents() {
+  try {
+    if (!fs.existsSync(studentsFilePath)) return [];
+    return JSON.parse(fs.readFileSync(studentsFilePath, 'utf8'));
+  } catch (error) {
+    console.error('Error reading file:', error.message);
+    return [];
+  }
+}
+
+function generateSchoolWiseReport() {
+  const students = readStudents();
+  
+  if (students.length === 0) {
+    console.log('\nNo student records available for generating the report.');
+    return;
+  }
+  
+  const schoolData = {};
+  
+  students.forEach(student => {
+    const risk = riskAnalysis.calculateRisk(student);
+    const school = student.school || 'Unknown School';
+    
+    if (!schoolData[school]) {
+      schoolData[school] = {
+        total: 0,
+        low: 0,
+        medium: 0,
+        high: 0
+      };
+    }
+    
+    schoolData[school].total++;
+    
+    if (risk.riskLevel === 'LOW RISK') {
+      schoolData[school].low++;
+    } else if (risk.riskLevel === 'MEDIUM RISK') {
+      schoolData[school].medium++;
+    } else {
+      schoolData[school].high++;
+    }
+  });
+  
+  console.log('\n========================================================');
+  console.log('                 SCHOOL-WISE REPORT');
+  console.log('========================================================\n');
+  console.log('School              Total    Low    Medium    High');
+  console.log('--------------------------------------------------------');
+  
+  Object.keys(schoolData).forEach(school => {
+    const data = schoolData[school];
+    
+    // Simple spacing without padEnd/padStart
+    let schoolName = school;
+    while (schoolName.length < 20) {
+      schoolName += ' ';
+    }
+    
+    let totalStr = String(data.total);
+    while (totalStr.length < 8) {
+      totalStr = ' ' + totalStr;
+    }
+    
+    let lowStr = String(data.low);
+    while (lowStr.length < 6) {
+      lowStr = ' ' + lowStr;
+    }
+    
+    let mediumStr = String(data.medium);
+    while (mediumStr.length < 8) {
+      mediumStr = ' ' + mediumStr;
+    }
+    
+    let highStr = String(data.high);
+    while (highStr.length < 8) {
+      highStr = ' ' + highStr;
+    }
+    
+    console.log(schoolName + totalStr + lowStr + mediumStr + highStr);
+  });
+  
+  console.log('========================================================');
+  console.log(`Total Schools: ${Object.keys(schoolData).length}`);
+  console.log(`Total Students: ${students.length}`);
+  console.log('========================================================');
+}
+
+module.exports = { generateSchoolWiseReport };
+
+

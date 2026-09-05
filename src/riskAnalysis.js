@@ -79,4 +79,4 @@ function displayRiskAnalysis() {
   console.log(`Total Students Analyzed: ${students.length}`);
 }
 
-module.exports = { displayRiskAnalysis };
+module.exports = { displayRiskAnalysis, calculateRisk };

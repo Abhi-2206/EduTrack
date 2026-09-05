@@ -1,1 +1,72 @@
-[]
+[
+  {
+    "studentId": "101",
+    "name": "Rahul Sharma",
+    "age": 15,
+    "gender": "Male",
+    "class": 10,
+    "school": "ABC School",
+    "area": "Urban",
+    "caste": "General",
+    "attendance": 85,
+    "averageMarks": 75,
+    "familyIncome": 200000,
+    "previousRecord": "No"
+  },
+  {
+    "studentId": "102",
+    "name": "Priya Singh",
+    "age": 14,
+    "gender": "Female",
+    "class": 9,
+    "school": "ABC School",
+    "area": "Rural",
+    "caste": "OBC",
+    "attendance": 60,
+    "averageMarks": 50,
+    "familyIncome": 100000,
+    "previousRecord": "No"
+  },
+  {
+    "studentId": "103",
+    "name": "Amit Kumar",
+    "age": 16,
+    "gender": "Male",
+    "class": 11,
+    "school": "XYZ School",
+    "area": "Rural",
+    "caste": "SC",
+    "attendance": 40,
+    "averageMarks": 35,
+    "familyIncome": 50000,
+    "previousRecord": "Yes"
+  },
+  {
+    "studentId": "104",
+    "name": "Sneha Patel",
+    "age": 15,
+    "gender": "Female",
+    "class": 10,
+    "school": "XYZ School",
+    "area": "Urban",
+    "caste": "General",
+    "attendance": 90,
+    "averageMarks": 80,
+    "familyIncome": 250000,
+    "previousRecord": "No"
+  },
+  {
+    "studentId": "105",
+    "name": "Vijay Singh",
+    "age": 14,
+    "gender": "Male",
+    "class": 9,
+    "school": "Government School",
+    "area": "Rural",
+    "caste": "OBC",
+    "attendance": 55,
+    "averageMarks": 45,
+    "familyIncome": 80000,
+    "previousRecord": "No"
+  }
+]

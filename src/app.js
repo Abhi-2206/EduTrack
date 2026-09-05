@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const studentManagement = require('./studentManagement');
 const riskAnalysis = require('./riskAnalysis');
+const reports = require('./reports');
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -45,6 +46,25 @@ async function studentManagementMenu() {
       case '4': await updateStudent(); break;
       case '5': await deleteStudent(); break;
       case '6': return;
+      default: console.log('Invalid choice');
+    }
+    
+    await askQuestion('Press Enter to continue...');
+  }
+}
+
+async function reportsMenu() {
+  while (true) {
+    console.log('\n========== REPORTS ==========');
+    console.log('1. School-wise Report');
+    console.log('2. Back to Main Menu');
+    console.log('========================================\n');
+    
+    const choice = await askQuestion('Enter choice (1-2): ');
+    
+    switch (choice.trim()) {
+      case '1': reports.generateSchoolWiseReport(); break;
+      case '2': return;
       default: console.log('Invalid choice');
     }
     
@@ -141,7 +161,7 @@ async function main() {
     switch (choice.trim()) {
       case '1': await studentManagementMenu(); break;
       case '2': riskAnalysis.displayRiskAnalysis(); break;
-      case '3': console.log('[Coming Soon]'); break;
+      case '3': await reportsMenu(); break;
       case '4': console.log('[Coming Soon]'); break;
       case '5': console.log('\nThank you!'); rl.close(); return;
       default: console.log('Invalid choice');
