@@ -59,16 +59,18 @@ async function reportsMenu() {
     console.log('1. School-wise Report');
     console.log('2. Area-wise Report');
     console.log('3. Gender-wise Report');
-    console.log('4. Back to Main Menu');
+    console.log('4. Class-wise Report');
+    console.log('5. Back to Main Menu');
     console.log('========================================\n');
     
-    const choice = await askQuestion('Enter choice (1-4): ');
+    const choice = await askQuestion('Enter choice (1-5): ');
     
     switch (choice.trim()) {
       case '1': reports.generateSchoolWiseReport(); break;
       case '2': reports.generateAreaWiseReport(); break;
       case '3': reports.generateGenderWiseReport(); break;
-      case '4': return;
+      case '4': reports.generateClassWiseReport(); break;
+      case '5': return;
       default: console.log('Invalid choice');
     }
     

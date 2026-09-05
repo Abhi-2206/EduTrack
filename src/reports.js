@@ -246,6 +246,90 @@ function generateGenderWiseReport() {
   console.log('========================================================');
 }
 
-module.exports = { generateSchoolWiseReport, generateAreaWiseReport, generateGenderWiseReport };
+function generateClassWiseReport() {
+  const students = readStudents();
+  
+  if (students.length === 0) {
+    console.log('\nNo student records available for generating the report.');
+    return;
+  }
+  
+  const classData = {};
+  
+  students.forEach(student => {
+    const risk = riskAnalysis.calculateRisk(student);
+    const studentClass = student.class || 'Unknown';
+    
+    if (!classData[studentClass]) {
+      classData[studentClass] = {
+        total: 0,
+        low: 0,
+        medium: 0,
+        high: 0
+      };
+    }
+    
+    classData[studentClass].total++;
+    
+    if (risk.riskLevel === 'LOW RISK') {
+      classData[studentClass].low++;
+    } else if (risk.riskLevel === 'MEDIUM RISK') {
+      classData[studentClass].medium++;
+    } else {
+      classData[studentClass].high++;
+    }
+  });
+  
+  // Sort classes numerically
+  const sortedClasses = Object.keys(classData).sort((a, b) => {
+    if (a === 'Unknown') return 1;
+    if (b === 'Unknown') return -1;
+    return parseInt(a) - parseInt(b);
+  });
+  
+  console.log('\n========================================================');
+  console.log('                  CLASS-WISE REPORT');
+  console.log('========================================================\n');
+  console.log('Class       Total     Low     Medium     High');
+  console.log('--------------------------------------------------------');
+  
+  sortedClasses.forEach(studentClass => {
+    const data = classData[studentClass];
+    
+    let className = String(studentClass);
+    while (className.length < 12) {
+      className += ' ';
+    }
+    
+    let totalStr = String(data.total);
+    while (totalStr.length < 9) {
+      totalStr = ' ' + totalStr;
+    }
+    
+    let lowStr = String(data.low);
+    while (lowStr.length < 7) {
+      lowStr = ' ' + lowStr;
+    }
+    
+    let mediumStr = String(data.medium);
+    while (mediumStr.length < 10) {
+      mediumStr = ' ' + mediumStr;
+    }
+    
+    let highStr = String(data.high);
+    while (highStr.length < 8) {
+      highStr = ' ' + highStr;
+    }
+    
+    console.log(className + totalStr + lowStr + mediumStr + highStr);
+  });
+  
+  console.log('========================================================');
+  console.log(`Total Classes: ${sortedClasses.length}`);
+  console.log(`Total Students: ${students.length}`);
+  console.log('========================================================');
+}
+
+module.exports = { generateSchoolWiseReport, generateAreaWiseReport, generateGenderWiseReport, generateClassWiseReport };
 
 

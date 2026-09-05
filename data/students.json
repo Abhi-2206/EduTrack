@@ -68,5 +68,19 @@
     "averageMarks": 45,
     "familyIncome": 80000,
     "previousRecord": "No"
+  },
+  {
+    "studentId": "106",
+    "name": "Neha Gupta",
+    "age": 13,
+    "gender": "Female",
+    "class": 8,
+    "school": "ABC School",
+    "area": "Urban",
+    "caste": "General",
+    "attendance": 75,
+    "averageMarks": 65,
+    "familyIncome": 180000,
+    "previousRecord": "No"
   }
 ]
