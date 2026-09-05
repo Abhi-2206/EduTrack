@@ -287,6 +287,10 @@ function generateClassWiseReport() {
     return parseInt(a) - parseInt(b);
   });
   
+  // Track class with highest high-risk students
+  let highestHighRisk = 0;
+  let attentionClass = '';
+  
   console.log('\n========================================================');
   console.log('                  CLASS-WISE REPORT');
   console.log('========================================================\n');
@@ -322,11 +326,29 @@ function generateClassWiseReport() {
     }
     
     console.log(className + totalStr + lowStr + mediumStr + highStr);
+    
+    // Check if this class has the highest high-risk students
+    if (data.high > highestHighRisk) {
+      highestHighRisk = data.high;
+      attentionClass = studentClass;
+    }
   });
   
   console.log('========================================================');
   console.log(`Total Classes: ${sortedClasses.length}`);
   console.log(`Total Students: ${students.length}`);
+  
+  // Display class requiring most attention
+  if (highestHighRisk > 0) {
+    console.log('--------------------------------------------------------');
+    console.log(`CLASS REQUIRING MOST ATTENTION: Class ${attentionClass}`);
+    console.log(`HIGH-RISK STUDENTS: ${highestHighRisk}`);
+    console.log('--------------------------------------------------------');
+    console.log('Recommendation:');
+    console.log(`Class ${attentionClass} requires the most attention because it has`);
+    console.log('the highest number of high-risk students.');
+  }
+  
   console.log('========================================================');
 }
 

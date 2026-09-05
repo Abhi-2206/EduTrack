@@ -82,5 +82,33 @@
     "averageMarks": 65,
     "familyIncome": 180000,
     "previousRecord": "No"
+  },
+  {
+    "studentId": "107",
+    "name": "Rajesh Kumar",
+    "age": 17,
+    "gender": "Male",
+    "class": 11,
+    "school": "XYZ School",
+    "area": "Rural",
+    "caste": "OBC",
+    "attendance": 35,
+    "averageMarks": 30,
+    "familyIncome": 40000,
+    "previousRecord": "Yes"
+  },
+  {
+    "studentId": "108",
+    "name": "Anita Devi",
+    "age": 16,
+    "gender": "Female",
+    "class": 11,
+    "school": "Government School",
+    "area": "Rural",
+    "caste": "SC",
+    "attendance": 45,
+    "averageMarks": 38,
+    "familyIncome": 60000,
+    "previousRecord": "Yes"
   }
 ]
