@@ -92,6 +92,83 @@ function generateSchoolWiseReport() {
   console.log('========================================================');
 }
 
-module.exports = { generateSchoolWiseReport };
+function generateAreaWiseReport() {
+  const students = readStudents();
+  
+  if (students.length === 0) {
+    console.log('\nNo student records available for generating the report.');
+    return;
+  }
+  
+  const areaData = {};
+  
+  students.forEach(student => {
+    const risk = riskAnalysis.calculateRisk(student);
+    const area = student.area || 'Unknown Area';
+    
+    if (!areaData[area]) {
+      areaData[area] = {
+        total: 0,
+        low: 0,
+        medium: 0,
+        high: 0
+      };
+    }
+    
+    areaData[area].total++;
+    
+    if (risk.riskLevel === 'LOW RISK') {
+      areaData[area].low++;
+    } else if (risk.riskLevel === 'MEDIUM RISK') {
+      areaData[area].medium++;
+    } else {
+      areaData[area].high++;
+    }
+  });
+  
+  console.log('\n========================================================');
+  console.log('                  AREA-WISE REPORT');
+  console.log('========================================================\n');
+  console.log('Area              Total     Low     Medium     High');
+  console.log('--------------------------------------------------------');
+  
+  Object.keys(areaData).forEach(area => {
+    const data = areaData[area];
+    
+    let areaName = area;
+    while (areaName.length < 18) {
+      areaName += ' ';
+    }
+    
+    let totalStr = String(data.total);
+    while (totalStr.length < 9) {
+      totalStr = ' ' + totalStr;
+    }
+    
+    let lowStr = String(data.low);
+    while (lowStr.length < 7) {
+      lowStr = ' ' + lowStr;
+    }
+    
+    let mediumStr = String(data.medium);
+    while (mediumStr.length < 10) {
+      mediumStr = ' ' + mediumStr;
+    }
+    
+    let highStr = String(data.high);
+    while (highStr.length < 8) {
+      highStr = ' ' + highStr;
+    }
+    
+    console.log(areaName + totalStr + lowStr + mediumStr + highStr);
+  });
+  
+  console.log('========================================================');
+  console.log(`Total Areas: ${Object.keys(areaData).length}`);
+  console.log(`Total Students: ${students.length}`);
+  console.log('========================================================');
+}
+
+module.exports = { generateSchoolWiseReport, generateAreaWiseReport };
 
 
