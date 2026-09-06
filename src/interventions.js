@@ -85,15 +85,19 @@ function provideInterventions(studentId) {
   
   console.log();
   
-  if (risk.previousRecordRisk > 0) {
+  if (risk.previousRecordRisk > 0 && risk.attendanceRisk > 0) {
     hasRiskFactors = true;
     console.log('Irregularity has been identified as a risk factor.\n');
     console.log('Issue Identified:');
-    console.log('Previous dropout / irregular academic record\n');
+    console.log('Previous dropout / irregular academic record with current low attendance\n');
     console.log('Suggested Irregularity Interventions:');
     console.log('1. Counselling');
     console.log('2. Regular student monitoring');
     console.log('3. Parent-teacher meetings');
+  } else if (risk.previousRecordRisk > 0) {
+    console.log('Previous dropout / irregular record: Yes');
+    console.log('Current attendance is satisfactory.');
+    console.log('No irregularity-based intervention is required.');
   } else {
     console.log('Previous dropout / irregular record: No');
     console.log('No irregularity-based intervention is required.');
