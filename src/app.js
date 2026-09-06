@@ -82,7 +82,7 @@ async function reportsMenu() {
 async function interventionsMenu() {
   while (true) {
     console.log('\n========== INTERVENTION SUGGESTIONS ==========');
-    console.log('1. Attendance-based Interventions');
+    console.log('1. Get Intervention Suggestions');
     console.log('2. Back to Main Menu');
     console.log('========================================\n');
     
@@ -91,7 +91,7 @@ async function interventionsMenu() {
     switch (choice.trim()) {
       case '1': 
         const studentId = await askQuestion('Enter Student ID: ');
-        interventions.provideAttendanceInterventions(studentId.trim());
+        interventions.provideInterventions(studentId.trim());
         break;
       case '2': return;
       default: console.log('Invalid choice');
@@ -196,7 +196,9 @@ async function main() {
       default: console.log('Invalid choice');
     }
     
-    await askQuestion('Press Enter to continue...');
+    if (choice.trim() !== '5') {
+      await askQuestion('Press Enter to continue...');
+    }
   }
 }
 

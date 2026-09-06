@@ -14,7 +14,7 @@ function readStudents() {
   }
 }
 
-function provideAttendanceInterventions(studentId) {
+function provideInterventions(studentId) {
   const students = readStudents();
   
   if (students.length === 0) {
@@ -36,9 +36,13 @@ function provideAttendanceInterventions(studentId) {
   console.log('========================================================\n');
   console.log(`Student ID: ${student.studentId}`);
   console.log(`Student Name: ${student.name}`);
-  console.log(`Attendance: ${student.attendance}%\n`);
+  console.log(`Attendance: ${student.attendance}%`);
+  console.log(`Average Marks: ${student.averageMarks}%\n`);
+  
+  let hasRiskFactors = false;
   
   if (risk.attendanceRisk > 0) {
+    hasRiskFactors = true;
     console.log('Attendance has been identified as a risk factor.\n');
     console.log('Suggested Interventions:');
     console.log('1. Regular attendance monitoring');
@@ -49,7 +53,25 @@ function provideAttendanceInterventions(studentId) {
     console.log('No attendance-based intervention is required.');
   }
   
+  console.log();
+  
+  if (risk.marksRisk > 0) {
+    hasRiskFactors = true;
+    console.log('Academic performance has been identified as a risk factor.\n');
+    console.log('Suggested Academic Interventions:');
+    console.log('1. Remedial classes');
+    console.log('2. Extra academic support');
+    console.log('3. Teacher follow-up');
+  } else {
+    console.log('Academic performance is not currently identified as a risk factor.');
+    console.log('No academic-based intervention is required.');
+  }
+  
+  if (!hasRiskFactors) {
+    console.log('\nNo intervention is currently required for this student.');
+  }
+  
   console.log('\n========================================================');
 }
 
-module.exports = { provideAttendanceInterventions };
+module.exports = { provideInterventions };
