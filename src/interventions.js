@@ -38,7 +38,8 @@ function provideInterventions(studentId) {
   console.log(`Student Name: ${student.name}`);
   console.log(`Attendance: ${student.attendance}%`);
   console.log(`Average Marks: ${student.averageMarks}%`);
-  console.log(`Family Income: ₹${student.familyIncome}\n`);
+  console.log(`Family Income: ₹${student.familyIncome}`);
+  console.log(`Previous Dropout/Irregular Record: ${student.previousRecord}\n`);
   
   let hasRiskFactors = false;
   
@@ -81,6 +82,24 @@ function provideInterventions(studentId) {
     console.log('Financial condition is not currently identified as a risk factor.');
     console.log('No financial-based intervention is required.');
   }
+  
+  console.log();
+  
+  if (risk.previousRecordRisk > 0) {
+    hasRiskFactors = true;
+    console.log('Irregularity has been identified as a risk factor.\n');
+    console.log('Issue Identified:');
+    console.log('Previous dropout / irregular academic record\n');
+    console.log('Suggested Irregularity Interventions:');
+    console.log('1. Counselling');
+    console.log('2. Regular student monitoring');
+    console.log('3. Parent-teacher meetings');
+  } else {
+    console.log('Previous dropout / irregular record: No');
+    console.log('No irregularity-based intervention is required.');
+  }
+  
+  console.log();
   
   if (!hasRiskFactors) {
     console.log('\nNo intervention is currently required for this student.');
