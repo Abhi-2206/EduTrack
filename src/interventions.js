@@ -37,7 +37,8 @@ function provideInterventions(studentId) {
   console.log(`Student ID: ${student.studentId}`);
   console.log(`Student Name: ${student.name}`);
   console.log(`Attendance: ${student.attendance}%`);
-  console.log(`Average Marks: ${student.averageMarks}%\n`);
+  console.log(`Average Marks: ${student.averageMarks}%`);
+  console.log(`Family Income: ₹${student.familyIncome}\n`);
   
   let hasRiskFactors = false;
   
@@ -65,6 +66,20 @@ function provideInterventions(studentId) {
   } else {
     console.log('Academic performance is not currently identified as a risk factor.');
     console.log('No academic-based intervention is required.');
+  }
+  
+  console.log();
+  
+  if (risk.incomeRisk > 0) {
+    hasRiskFactors = true;
+    console.log('Financial condition has been identified as a risk factor.\n');
+    console.log('Suggested Financial Interventions:');
+    console.log('1. Scholarship assistance');
+    console.log('2. Financial aid');
+    console.log('3. Support from relevant school programs');
+  } else {
+    console.log('Financial condition is not currently identified as a risk factor.');
+    console.log('No financial-based intervention is required.');
   }
   
   if (!hasRiskFactors) {
