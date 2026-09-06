@@ -4,6 +4,7 @@ const path = require('path');
 const studentManagement = require('./studentManagement');
 const riskAnalysis = require('./riskAnalysis');
 const reports = require('./reports');
+const interventions = require('./interventions');
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -71,6 +72,28 @@ async function reportsMenu() {
       case '3': reports.generateGenderWiseReport(); break;
       case '4': reports.generateClassWiseReport(); break;
       case '5': return;
+      default: console.log('Invalid choice');
+    }
+    
+    await askQuestion('Press Enter to continue...');
+  }
+}
+
+async function interventionsMenu() {
+  while (true) {
+    console.log('\n========== INTERVENTION SUGGESTIONS ==========');
+    console.log('1. Attendance-based Interventions');
+    console.log('2. Back to Main Menu');
+    console.log('========================================\n');
+    
+    const choice = await askQuestion('Enter choice (1-2): ');
+    
+    switch (choice.trim()) {
+      case '1': 
+        const studentId = await askQuestion('Enter Student ID: ');
+        interventions.provideAttendanceInterventions(studentId.trim());
+        break;
+      case '2': return;
       default: console.log('Invalid choice');
     }
     
@@ -168,7 +191,7 @@ async function main() {
       case '1': await studentManagementMenu(); break;
       case '2': riskAnalysis.displayRiskAnalysis(); break;
       case '3': await reportsMenu(); break;
-      case '4': console.log('[Coming Soon]'); break;
+      case '4': await interventionsMenu(); break;
       case '5': console.log('\nThank you!'); rl.close(); return;
       default: console.log('Invalid choice');
     }
