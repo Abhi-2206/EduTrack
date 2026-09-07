@@ -54,13 +54,49 @@ function viewAllStudents() {
     console.log('\nNo students found');
     return;
   }
-  console.log('\n=== ALL STUDENTS ===\n');
-  students.forEach(s => {
-    console.log(`ID: ${s.studentId}, Name: ${s.name}, Age: ${s.age}, Class: ${s.class}`);
-    console.log(`School: ${s.school}, Area: ${s.area}, Attendance: ${s.attendance}%, Marks: ${s.averageMarks}%`);
-    console.log(`Income: ${s.familyIncome}, Previous Record: ${s.previousRecord}\n`);
+  console.log('\n========================================================');
+  console.log('                 ALL STUDENTS');
+  console.log('========================================================\n');
+  
+  const displayNames = {
+    studentId: 'Student ID',
+    name: 'Name',
+    age: 'Age',
+    gender: 'Gender',
+    class: 'Class',
+    school: 'School',
+    area: 'Area',
+    caste: 'Caste',
+    attendance: 'Attendance',
+    averageMarks: 'Average Marks',
+    familyIncome: 'Family Income',
+    previousRecord: 'Previous Dropout/Irregular Record'
+  };
+  
+  students.forEach((student, index) => {
+    console.log(`Student ${index + 1}`);
+    console.log('--------------------------------------------------------');
+    
+    for (let key in student) {
+      let value = student[key];
+      let displayName = displayNames[key] || key;
+      
+      if (key === 'attendance' || key === 'averageMarks') {
+        value = value + '%';
+      }
+      if (key === 'familyIncome') {
+        value = '₹' + value;
+      }
+      
+      console.log(`${displayName}: ${value}`);
+    }
+    
+    console.log();
   });
+  
+  console.log('========================================================');
   console.log(`Total: ${students.length} students`);
+  console.log('========================================================');
 }
 
 function searchStudent(term) {
