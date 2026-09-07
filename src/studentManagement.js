@@ -67,10 +67,40 @@ function searchStudent(term) {
   const students = readStudents();
   const student = students.find(s => s.studentId === term || s.name.toLowerCase() === term.toLowerCase());
   if (student) {
-    console.log('\n=== STUDENT FOUND ===\n');
-    console.log(`ID: ${student.studentId}, Name: ${student.name}, Age: ${student.age}, Class: ${student.class}`);
-    console.log(`School: ${student.school}, Area: ${student.area}, Attendance: ${student.attendance}%, Marks: ${student.averageMarks}%`);
-    console.log(`Income: ${student.familyIncome}, Previous Record: ${student.previousRecord}`);
+    console.log('\n========================================================');
+    console.log('                 STUDENT DETAILS');
+    console.log('========================================================\n');
+    
+    const displayNames = {
+      studentId: 'Student ID',
+      name: 'Name',
+      age: 'Age',
+      gender: 'Gender',
+      class: 'Class',
+      school: 'School',
+      area: 'Area',
+      caste: 'Caste',
+      attendance: 'Attendance',
+      averageMarks: 'Average Marks',
+      familyIncome: 'Family Income',
+      previousRecord: 'Previous Dropout/Irregular Record'
+    };
+    
+    for (let key in student) {
+      let value = student[key];
+      let displayName = displayNames[key] || key;
+      
+      if (key === 'attendance' || key === 'averageMarks') {
+        value = value + '%';
+      }
+      if (key === 'familyIncome') {
+        value = '₹' + value;
+      }
+      
+      console.log(`${displayName}: ${value}`);
+    }
+    
+    console.log('\n========================================================');
   } else {
     console.log('\nStudent not found');
   }
