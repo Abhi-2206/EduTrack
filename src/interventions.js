@@ -103,10 +103,8 @@ function provideInterventions(studentId) {
     console.log('No irregularity-based intervention is required.');
   }
   
-  console.log();
-  
   if (!hasRiskFactors) {
-    console.log('\nNo intervention is currently required for this student.');
+    console.log('\nNo specific dropout risk factors requiring intervention were identified.');
   }
   
   console.log('\n========================================================');
